@@ -8,7 +8,7 @@
         "DRIVER": "mysql"
     },
     "SESSION": {
-        "ID": "financial_record_okt",
+        "ID": "finacial_record_okt",
         "FLASH": "flash_logout"
     }
 }
