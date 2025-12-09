@@ -22,6 +22,7 @@ RUN apk add --no-cache ca-certificates
 
 # Copy the compiled binary from the builder
 COPY --from=builder /app/app /app/app
+COPY --from=builder /app/app.conf.json /app/app.conf.json
 
 EXPOSE 8000
 CMD ["./app"]
