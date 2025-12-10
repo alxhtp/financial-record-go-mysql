@@ -10,12 +10,118 @@
 
     <!-- Bootstrap Icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #0ea5e9 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        .page-shell {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(12px);
+            padding: 24px;
+        }
+
+        .section-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(14, 165, 233, 0.16);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            color: #e0f2fe;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .glow-card {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+            color: #e2e8f0;
+        }
+
+        .glow-card .card-header {
+            background: transparent;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            margin: 0;
+            color: #e0f2fe;
+        }
+
+        .table {
+            color: #e2e8f0;
+        }
+
+        .table thead {
+            background: linear-gradient(120deg, rgba(14, 165, 233, 0.3), rgba(59, 130, 246, 0.25));
+            color: #e0f2fe;
+        }
+
+        .table-striped>tbody>tr:nth-of-type(odd)>* {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .table-hover>tbody>tr:hover>* {
+            background: rgba(14, 165, 233, 0.12) !important;
+        }
+
+        .badge {
+            font-size: 0.9rem;
+            padding: 0.5em 0.8em;
+            border-radius: 999px;
+        }
+
+        .btn-pill {
+            border-radius: 999px;
+            padding-inline: 14px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        .form-select,
+        .form-check-input {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .form-check-label {
+            color: #cbd5e1;
+        }
+
+        img.img-thumbnail {
+            border-color: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.05);
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <main class="my-5">
-            <h5><strong>Catatan Keuangan</strong></h5>
+    <div class="container py-4">
+        <main class="my-4 page-shell">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-3">
+                <span class="section-title"><i class="bi bi-bar-chart-fill"></i> Catatan Keuangan</span>
+                <div class="d-flex gap-2">
+                    <a href="/financial/add_financial_record" class="btn btn-primary btn-pill"><i class="bi bi-plus-lg"></i>
+                        Tambah Data</a>
+                    <a href="/financial/download_financial_record?pemasukanOnly={{ .pemasukanOnly }}&pengeluaranOnly={{ .pengeluaranOnly }}&selected_month={{ .selectedMonth }}"
+                        target="_blank" class="btn btn-outline-light btn-pill"><i class="bi bi-file-earmark-pdf"></i> Export
+                        PDF</a>
+                    <a href="/profile" class="btn btn-warning btn-pill"><i class="bi bi-person-circle"></i> Profile</a>
+                </div>
+            </div>
 
             {{ if .error }}
             <div class="alert alert-danger">{{ .error }}</div>
@@ -26,22 +132,22 @@
 
             <div class="row mb-3">
                 <div class="col-12 col-md-3">
-                    <div class="card">
+                    <div class="card glow-card">
                         <div class="card-header">
                             Total Pemasukan Bulan : {{ .selectedMonth }}
                         </div>
                         <div class="card-body">
-                            <h4>Rp. {{ formatIDR .total_pemasukan }}</h4>
+                            <p class="stat-value">Rp. {{ formatIDR .total_pemasukan }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-3">
-                    <div class="card">
+                    <div class="card glow-card">
                         <div class="card-header">
                             Total Pengeluaran Bulan : {{ .selectedMonth }}
                         </div>
                         <div class="card-body">
-                            <h4>Rp. {{ formatIDR .total_pengeluaran }}</h4>
+                            <p class="stat-value">Rp. {{ formatIDR .total_pengeluaran }}</p>
                         </div>
                     </div>
                 </div>
@@ -56,7 +162,7 @@
                 </div>
 
             </div>
-            <div class="card">
+            <div class="card glow-card">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-12 col-md-6">
@@ -81,16 +187,16 @@
                         <div class="col-12 col-md-6">
                             <div class="d-flex align-items-center justify-content-md-end gap-3">
                                 <a href="/financial/download_financial_record?pemasukanOnly={{ .pemasukanOnly }}&pengeluaranOnly={{ .pengeluaranOnly }}&selected_month={{ .selectedMonth }}"
-                                    target="_blank" class="btn btn-sm btn-danger">Export PDF</a>
-                                <a href="/financial/add_financial_record" class="btn btn-sm btn-primary">Tambah Data</a>
-                                <a href="/profile" class="btn btn-sm btn-warning">Profile</a>
+                                    target="_blank" class="btn btn-sm btn-outline-light btn-pill"><i class="bi bi-file-earmark-pdf"></i> PDF</a>
+                                <a href="/financial/add_financial_record" class="btn btn-sm btn-primary btn-pill"><i class="bi bi-plus"></i> Tambah</a>
+                                <a href="/profile" class="btn btn-sm btn-warning btn-pill"><i class="bi bi-person"></i> Profile</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped table-hover align-middle">
                             <thead>
                                 <tr>
                                     <th>No</th>
