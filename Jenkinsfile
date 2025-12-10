@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'devops1-alex' }
+    agent { label 'server-finapp' }
 
     stages {
         stage('Pull SCM') {
