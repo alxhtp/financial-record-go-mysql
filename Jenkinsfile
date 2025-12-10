@@ -36,7 +36,7 @@ pipeline {
             steps {
                 sh'''
                 docker build -t financial-record-go-mysql .
-                docker run -d -p 8081:8000 financial-record-go-mysql
+                docker run -d -p 9090:8000 financial-record-go-mysql
                 '''
             }
         }
